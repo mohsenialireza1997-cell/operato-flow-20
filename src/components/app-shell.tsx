@@ -50,7 +50,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           return (
             <Link
               key={to}
-              to={to as string}
+              to={to as never}
               onClick={() => setMobileOpen(false)}
               className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition ${
                 active
