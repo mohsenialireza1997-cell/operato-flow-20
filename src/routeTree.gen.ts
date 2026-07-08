@@ -13,6 +13,14 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/app'
+import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
+import { Route as AuthenticatedAppReportsRouteImport } from './routes/_authenticated/app.reports'
+import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app.profile'
+import { Route as AuthenticatedAppInvoicesRouteImport } from './routes/_authenticated/app.invoices'
+import { Route as AuthenticatedAppDriversRouteImport } from './routes/_authenticated/app.drivers'
+import { Route as AuthenticatedAppShipmentsIndexRouteImport } from './routes/_authenticated/app.shipments.index'
+import { Route as AuthenticatedAppShipmentsNewRouteImport } from './routes/_authenticated/app.shipments.new'
+import { Route as AuthenticatedAppShipmentsIdRouteImport } from './routes/_authenticated/app.shipments.$id'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -33,30 +41,131 @@ const AuthenticatedAppRoute = AuthenticatedAppRouteImport.update({
   path: '/app',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppReportsRoute = AuthenticatedAppReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppProfileRoute = AuthenticatedAppProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppInvoicesRoute =
+  AuthenticatedAppInvoicesRouteImport.update({
+    id: '/invoices',
+    path: '/invoices',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppDriversRoute = AuthenticatedAppDriversRouteImport.update({
+  id: '/drivers',
+  path: '/drivers',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
+const AuthenticatedAppShipmentsIndexRoute =
+  AuthenticatedAppShipmentsIndexRouteImport.update({
+    id: '/shipments/',
+    path: '/shipments/',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppShipmentsNewRoute =
+  AuthenticatedAppShipmentsNewRouteImport.update({
+    id: '/shipments/new',
+    path: '/shipments/new',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppShipmentsIdRoute =
+  AuthenticatedAppShipmentsIdRouteImport.update({
+    id: '/shipments/$id',
+    path: '/shipments/$id',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/app': typeof AuthenticatedAppRoute
+  '/app': typeof AuthenticatedAppRouteWithChildren
+  '/app/drivers': typeof AuthenticatedAppDriversRoute
+  '/app/invoices': typeof AuthenticatedAppInvoicesRoute
+  '/app/profile': typeof AuthenticatedAppProfileRoute
+  '/app/reports': typeof AuthenticatedAppReportsRoute
+  '/app/': typeof AuthenticatedAppIndexRoute
+  '/app/shipments/$id': typeof AuthenticatedAppShipmentsIdRoute
+  '/app/shipments/new': typeof AuthenticatedAppShipmentsNewRoute
+  '/app/shipments/': typeof AuthenticatedAppShipmentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/app': typeof AuthenticatedAppRoute
+  '/app/drivers': typeof AuthenticatedAppDriversRoute
+  '/app/invoices': typeof AuthenticatedAppInvoicesRoute
+  '/app/profile': typeof AuthenticatedAppProfileRoute
+  '/app/reports': typeof AuthenticatedAppReportsRoute
+  '/app': typeof AuthenticatedAppIndexRoute
+  '/app/shipments/$id': typeof AuthenticatedAppShipmentsIdRoute
+  '/app/shipments/new': typeof AuthenticatedAppShipmentsNewRoute
+  '/app/shipments': typeof AuthenticatedAppShipmentsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
-  '/_authenticated/app': typeof AuthenticatedAppRoute
+  '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/_authenticated/app/drivers': typeof AuthenticatedAppDriversRoute
+  '/_authenticated/app/invoices': typeof AuthenticatedAppInvoicesRoute
+  '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
+  '/_authenticated/app/reports': typeof AuthenticatedAppReportsRoute
+  '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
+  '/_authenticated/app/shipments/$id': typeof AuthenticatedAppShipmentsIdRoute
+  '/_authenticated/app/shipments/new': typeof AuthenticatedAppShipmentsNewRoute
+  '/_authenticated/app/shipments/': typeof AuthenticatedAppShipmentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/app'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/app'
+    | '/app/drivers'
+    | '/app/invoices'
+    | '/app/profile'
+    | '/app/reports'
+    | '/app/'
+    | '/app/shipments/$id'
+    | '/app/shipments/new'
+    | '/app/shipments/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/app'
-  id: '__root__' | '/' | '/_authenticated' | '/auth' | '/_authenticated/app'
+  to:
+    | '/'
+    | '/auth'
+    | '/app/drivers'
+    | '/app/invoices'
+    | '/app/profile'
+    | '/app/reports'
+    | '/app'
+    | '/app/shipments/$id'
+    | '/app/shipments/new'
+    | '/app/shipments'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/auth'
+    | '/_authenticated/app'
+    | '/_authenticated/app/drivers'
+    | '/_authenticated/app/invoices'
+    | '/_authenticated/app/profile'
+    | '/_authenticated/app/reports'
+    | '/_authenticated/app/'
+    | '/_authenticated/app/shipments/$id'
+    | '/_authenticated/app/shipments/new'
+    | '/_authenticated/app/shipments/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -95,15 +204,96 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/app/': {
+      id: '/_authenticated/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/reports': {
+      id: '/_authenticated/app/reports'
+      path: '/reports'
+      fullPath: '/app/reports'
+      preLoaderRoute: typeof AuthenticatedAppReportsRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/profile': {
+      id: '/_authenticated/app/profile'
+      path: '/profile'
+      fullPath: '/app/profile'
+      preLoaderRoute: typeof AuthenticatedAppProfileRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/invoices': {
+      id: '/_authenticated/app/invoices'
+      path: '/invoices'
+      fullPath: '/app/invoices'
+      preLoaderRoute: typeof AuthenticatedAppInvoicesRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/drivers': {
+      id: '/_authenticated/app/drivers'
+      path: '/drivers'
+      fullPath: '/app/drivers'
+      preLoaderRoute: typeof AuthenticatedAppDriversRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/shipments/': {
+      id: '/_authenticated/app/shipments/'
+      path: '/shipments'
+      fullPath: '/app/shipments/'
+      preLoaderRoute: typeof AuthenticatedAppShipmentsIndexRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/shipments/new': {
+      id: '/_authenticated/app/shipments/new'
+      path: '/shipments/new'
+      fullPath: '/app/shipments/new'
+      preLoaderRoute: typeof AuthenticatedAppShipmentsNewRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/shipments/$id': {
+      id: '/_authenticated/app/shipments/$id'
+      path: '/shipments/$id'
+      fullPath: '/app/shipments/$id'
+      preLoaderRoute: typeof AuthenticatedAppShipmentsIdRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
   }
 }
 
+interface AuthenticatedAppRouteChildren {
+  AuthenticatedAppDriversRoute: typeof AuthenticatedAppDriversRoute
+  AuthenticatedAppInvoicesRoute: typeof AuthenticatedAppInvoicesRoute
+  AuthenticatedAppProfileRoute: typeof AuthenticatedAppProfileRoute
+  AuthenticatedAppReportsRoute: typeof AuthenticatedAppReportsRoute
+  AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
+  AuthenticatedAppShipmentsIdRoute: typeof AuthenticatedAppShipmentsIdRoute
+  AuthenticatedAppShipmentsNewRoute: typeof AuthenticatedAppShipmentsNewRoute
+  AuthenticatedAppShipmentsIndexRoute: typeof AuthenticatedAppShipmentsIndexRoute
+}
+
+const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
+  AuthenticatedAppDriversRoute: AuthenticatedAppDriversRoute,
+  AuthenticatedAppInvoicesRoute: AuthenticatedAppInvoicesRoute,
+  AuthenticatedAppProfileRoute: AuthenticatedAppProfileRoute,
+  AuthenticatedAppReportsRoute: AuthenticatedAppReportsRoute,
+  AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
+  AuthenticatedAppShipmentsIdRoute: AuthenticatedAppShipmentsIdRoute,
+  AuthenticatedAppShipmentsNewRoute: AuthenticatedAppShipmentsNewRoute,
+  AuthenticatedAppShipmentsIndexRoute: AuthenticatedAppShipmentsIndexRoute,
+}
+
+const AuthenticatedAppRouteWithChildren =
+  AuthenticatedAppRoute._addFileChildren(AuthenticatedAppRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedAppRoute: typeof AuthenticatedAppRoute
+  AuthenticatedAppRoute: typeof AuthenticatedAppRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAppRoute: AuthenticatedAppRoute,
+  AuthenticatedAppRoute: AuthenticatedAppRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =
