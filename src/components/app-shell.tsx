@@ -10,7 +10,9 @@ import { Menu } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { useNavigate } from "@tanstack/react-router";
 
-const nav = [
+import type { Role } from "@/lib/auth-context";
+
+const nav: { to: string; icon: typeof LayoutDashboard; key: string; roles: Role[] }[] = [
   { to: "/app", icon: LayoutDashboard, key: "nav_dashboard", roles: ["customer","operator","manager","driver","admin"] },
   { to: "/app/shipments", icon: Truck, key: "nav_shipments", roles: ["customer","operator","manager","driver","admin"] },
   { to: "/app/shipments/new", icon: Plus, key: "nav_new_shipment", roles: ["customer","operator","manager","admin"] },
@@ -18,7 +20,7 @@ const nav = [
   { to: "/app/drivers", icon: UserCog, key: "nav_drivers", roles: ["operator","manager","admin"] },
   { to: "/app/reports", icon: BarChart3, key: "nav_reports", roles: ["manager","admin"] },
   { to: "/app/profile", icon: User, key: "nav_profile", roles: ["customer","operator","manager","driver","admin"] },
-] as const;
+];
 
 export function AppShell({ children }: { children: ReactNode }) {
   const { t } = useI18n();
