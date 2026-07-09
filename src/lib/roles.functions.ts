@@ -4,10 +4,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 type Role = "customer" | "operator" | "manager" | "driver" | "admin";
 const ROLES: Role[] = ["customer", "operator", "manager", "driver", "admin"];
 
-async function assertAdminOrManager(ctx: {
-  supabase: { rpc: (fn: string, args: Record<string, unknown>) => Promise<{ data: unknown; error: unknown }> };
-  userId: string;
-}) {
+async function assertAdminOrManager(ctx: { supabase: any; userId: string }) {
   const [{ data: isAdmin }, { data: isManager }] = await Promise.all([
     ctx.supabase.rpc("has_role", { _user_id: ctx.userId, _role: "admin" }),
     ctx.supabase.rpc("has_role", { _user_id: ctx.userId, _role: "manager" }),
