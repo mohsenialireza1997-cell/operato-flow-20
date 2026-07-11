@@ -86,25 +86,9 @@ function DriverProfilePage() {
         <Card className="md:col-span-2">
           <CardHeader><CardTitle className="text-base">{lang === "fa" ? "ترجیحات کاری" : "Work preferences"}</CardTitle></CardHeader>
           <CardContent className="space-y-3 text-sm">
-            <div>
-              <div className="text-xs text-muted-foreground mb-1">{lang === "fa" ? "مبدأهای پرتردد" : "Preferred origins"}</div>
-              <div className="flex flex-wrap gap-1.5">
-                {(driver.preferred_origin_cities ?? []).length === 0 ? "—" :
-                  driver.preferred_origin_cities.map((c: string) => <Badge key={c} variant="secondary">{c}</Badge>)}
-              </div>
-            </div>
-            <div>
-              <div className="text-xs text-muted-foreground mb-1">{lang === "fa" ? "مقصدهای پرتردد" : "Preferred destinations"}</div>
-              <div className="flex flex-wrap gap-1.5">
-                {(driver.preferred_destination_cities ?? []).length === 0 ? "—" :
-                  driver.preferred_destination_cities.map((c: string) => <Badge key={c} variant="secondary">{c}</Badge>)}
-              </div>
-            </div>
-            <div>
-              <div className="text-xs text-muted-foreground mb-1">{lang === "fa" ? "انواع بار" : "Cargo types"}</div>
-              <div className="flex flex-wrap gap-1.5">
-                {(driver.preferred_cargo_types ?? []).length === 0 ? "—" :
-                  driver.preferred_cargo_types.map((c: string) => <Badge key={c} variant="secondary">{c}</Badge>)}
+            <ChipRow label={lang === "fa" ? "مبدأهای پرتردد" : "Preferred origins"} items={driver.preferred_origin_cities ?? []} />
+            <ChipRow label={lang === "fa" ? "مقصدهای پرتردد" : "Preferred destinations"} items={driver.preferred_destination_cities ?? []} />
+            <ChipRow label={lang === "fa" ? "انواع بار" : "Cargo types"} items={driver.preferred_cargo_types ?? []} />
               </div>
             </div>
           </CardContent>
