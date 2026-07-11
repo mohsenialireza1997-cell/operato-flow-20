@@ -89,10 +89,19 @@ function DriverProfilePage() {
             <ChipRow label={lang === "fa" ? "مبدأهای پرتردد" : "Preferred origins"} items={driver.preferred_origin_cities ?? []} />
             <ChipRow label={lang === "fa" ? "مقصدهای پرتردد" : "Preferred destinations"} items={driver.preferred_destination_cities ?? []} />
             <ChipRow label={lang === "fa" ? "انواع بار" : "Cargo types"} items={driver.preferred_cargo_types ?? []} />
-              </div>
-            </div>
           </CardContent>
         </Card>
+      </div>
+    </div>
+  );
+}
+
+function ChipRow({ label, items }: { label: string; items: string[] }) {
+  return (
+    <div>
+      <div className="text-xs text-muted-foreground mb-1">{label}</div>
+      <div className="flex flex-wrap gap-1.5">
+        {items.length === 0 ? "—" : items.map((c) => <Badge key={c} variant="secondary">{c}</Badge>)}
       </div>
     </div>
   );
