@@ -16,8 +16,11 @@ import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated/ap
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAppReportsRouteImport } from './routes/_authenticated/app.reports'
 import { Route as AuthenticatedAppProfileRouteImport } from './routes/_authenticated/app.profile'
+import { Route as AuthenticatedAppOnboardingRouteImport } from './routes/_authenticated/app.onboarding'
 import { Route as AuthenticatedAppInvoicesRouteImport } from './routes/_authenticated/app.invoices'
 import { Route as AuthenticatedAppDriversRouteImport } from './routes/_authenticated/app.drivers'
+import { Route as AuthenticatedAppDriverProfileRouteImport } from './routes/_authenticated/app.driver-profile'
+import { Route as AuthenticatedAppAvailableLoadsRouteImport } from './routes/_authenticated/app.available-loads'
 import { Route as AuthenticatedAppShipmentsIndexRouteImport } from './routes/_authenticated/app.shipments.index'
 import { Route as AuthenticatedAppShipmentsNewRouteImport } from './routes/_authenticated/app.shipments.new'
 import { Route as AuthenticatedAppShipmentsIdRouteImport } from './routes/_authenticated/app.shipments.$id'
@@ -56,6 +59,12 @@ const AuthenticatedAppProfileRoute = AuthenticatedAppProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppOnboardingRoute =
+  AuthenticatedAppOnboardingRouteImport.update({
+    id: '/onboarding',
+    path: '/onboarding',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppInvoicesRoute =
   AuthenticatedAppInvoicesRouteImport.update({
     id: '/invoices',
@@ -67,6 +76,18 @@ const AuthenticatedAppDriversRoute = AuthenticatedAppDriversRouteImport.update({
   path: '/drivers',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppDriverProfileRoute =
+  AuthenticatedAppDriverProfileRouteImport.update({
+    id: '/driver-profile',
+    path: '/driver-profile',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
+const AuthenticatedAppAvailableLoadsRoute =
+  AuthenticatedAppAvailableLoadsRouteImport.update({
+    id: '/available-loads',
+    path: '/available-loads',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppShipmentsIndexRoute =
   AuthenticatedAppShipmentsIndexRouteImport.update({
     id: '/shipments/',
@@ -90,8 +111,11 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
+  '/app/available-loads': typeof AuthenticatedAppAvailableLoadsRoute
+  '/app/driver-profile': typeof AuthenticatedAppDriverProfileRoute
   '/app/drivers': typeof AuthenticatedAppDriversRoute
   '/app/invoices': typeof AuthenticatedAppInvoicesRoute
+  '/app/onboarding': typeof AuthenticatedAppOnboardingRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/reports': typeof AuthenticatedAppReportsRoute
   '/app/': typeof AuthenticatedAppIndexRoute
@@ -102,8 +126,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/app/available-loads': typeof AuthenticatedAppAvailableLoadsRoute
+  '/app/driver-profile': typeof AuthenticatedAppDriverProfileRoute
   '/app/drivers': typeof AuthenticatedAppDriversRoute
   '/app/invoices': typeof AuthenticatedAppInvoicesRoute
+  '/app/onboarding': typeof AuthenticatedAppOnboardingRoute
   '/app/profile': typeof AuthenticatedAppProfileRoute
   '/app/reports': typeof AuthenticatedAppReportsRoute
   '/app': typeof AuthenticatedAppIndexRoute
@@ -117,8 +144,11 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/_authenticated/app/available-loads': typeof AuthenticatedAppAvailableLoadsRoute
+  '/_authenticated/app/driver-profile': typeof AuthenticatedAppDriverProfileRoute
   '/_authenticated/app/drivers': typeof AuthenticatedAppDriversRoute
   '/_authenticated/app/invoices': typeof AuthenticatedAppInvoicesRoute
+  '/_authenticated/app/onboarding': typeof AuthenticatedAppOnboardingRoute
   '/_authenticated/app/profile': typeof AuthenticatedAppProfileRoute
   '/_authenticated/app/reports': typeof AuthenticatedAppReportsRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
@@ -132,8 +162,11 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/app'
+    | '/app/available-loads'
+    | '/app/driver-profile'
     | '/app/drivers'
     | '/app/invoices'
+    | '/app/onboarding'
     | '/app/profile'
     | '/app/reports'
     | '/app/'
@@ -144,8 +177,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/app/available-loads'
+    | '/app/driver-profile'
     | '/app/drivers'
     | '/app/invoices'
+    | '/app/onboarding'
     | '/app/profile'
     | '/app/reports'
     | '/app'
@@ -158,8 +194,11 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/app'
+    | '/_authenticated/app/available-loads'
+    | '/_authenticated/app/driver-profile'
     | '/_authenticated/app/drivers'
     | '/_authenticated/app/invoices'
+    | '/_authenticated/app/onboarding'
     | '/_authenticated/app/profile'
     | '/_authenticated/app/reports'
     | '/_authenticated/app/'
@@ -225,6 +264,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppProfileRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/onboarding': {
+      id: '/_authenticated/app/onboarding'
+      path: '/onboarding'
+      fullPath: '/app/onboarding'
+      preLoaderRoute: typeof AuthenticatedAppOnboardingRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/invoices': {
       id: '/_authenticated/app/invoices'
       path: '/invoices'
@@ -237,6 +283,20 @@ declare module '@tanstack/react-router' {
       path: '/drivers'
       fullPath: '/app/drivers'
       preLoaderRoute: typeof AuthenticatedAppDriversRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/driver-profile': {
+      id: '/_authenticated/app/driver-profile'
+      path: '/driver-profile'
+      fullPath: '/app/driver-profile'
+      preLoaderRoute: typeof AuthenticatedAppDriverProfileRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
+    '/_authenticated/app/available-loads': {
+      id: '/_authenticated/app/available-loads'
+      path: '/available-loads'
+      fullPath: '/app/available-loads'
+      preLoaderRoute: typeof AuthenticatedAppAvailableLoadsRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
     '/_authenticated/app/shipments/': {
@@ -264,8 +324,11 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAppRouteChildren {
+  AuthenticatedAppAvailableLoadsRoute: typeof AuthenticatedAppAvailableLoadsRoute
+  AuthenticatedAppDriverProfileRoute: typeof AuthenticatedAppDriverProfileRoute
   AuthenticatedAppDriversRoute: typeof AuthenticatedAppDriversRoute
   AuthenticatedAppInvoicesRoute: typeof AuthenticatedAppInvoicesRoute
+  AuthenticatedAppOnboardingRoute: typeof AuthenticatedAppOnboardingRoute
   AuthenticatedAppProfileRoute: typeof AuthenticatedAppProfileRoute
   AuthenticatedAppReportsRoute: typeof AuthenticatedAppReportsRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
@@ -275,8 +338,11 @@ interface AuthenticatedAppRouteChildren {
 }
 
 const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
+  AuthenticatedAppAvailableLoadsRoute: AuthenticatedAppAvailableLoadsRoute,
+  AuthenticatedAppDriverProfileRoute: AuthenticatedAppDriverProfileRoute,
   AuthenticatedAppDriversRoute: AuthenticatedAppDriversRoute,
   AuthenticatedAppInvoicesRoute: AuthenticatedAppInvoicesRoute,
+  AuthenticatedAppOnboardingRoute: AuthenticatedAppOnboardingRoute,
   AuthenticatedAppProfileRoute: AuthenticatedAppProfileRoute,
   AuthenticatedAppReportsRoute: AuthenticatedAppReportsRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
@@ -307,13 +373,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

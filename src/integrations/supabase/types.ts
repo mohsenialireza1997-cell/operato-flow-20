@@ -49,34 +49,70 @@ export type Database = {
       }
       drivers: {
         Row: {
+          capacity_ton: number | null
+          completed_trips: number | null
           created_at: string
           full_name: string
           id: string
+          insurance_expiry: string | null
           is_active: boolean
           license_plate: string | null
+          national_id: string | null
+          ownership: string | null
           phone: string | null
+          preferred_cargo_types: string[] | null
+          preferred_destination_cities: string[] | null
+          preferred_origin_cities: string[] | null
+          rating_avg: number | null
+          technical_inspection_expiry: string | null
           truck_type: string | null
           user_id: string | null
+          vehicle_model: string | null
+          vehicle_year: number | null
         }
         Insert: {
+          capacity_ton?: number | null
+          completed_trips?: number | null
           created_at?: string
           full_name: string
           id?: string
+          insurance_expiry?: string | null
           is_active?: boolean
           license_plate?: string | null
+          national_id?: string | null
+          ownership?: string | null
           phone?: string | null
+          preferred_cargo_types?: string[] | null
+          preferred_destination_cities?: string[] | null
+          preferred_origin_cities?: string[] | null
+          rating_avg?: number | null
+          technical_inspection_expiry?: string | null
           truck_type?: string | null
           user_id?: string | null
+          vehicle_model?: string | null
+          vehicle_year?: number | null
         }
         Update: {
+          capacity_ton?: number | null
+          completed_trips?: number | null
           created_at?: string
           full_name?: string
           id?: string
+          insurance_expiry?: string | null
           is_active?: boolean
           license_plate?: string | null
+          national_id?: string | null
+          ownership?: string | null
           phone?: string | null
+          preferred_cargo_types?: string[] | null
+          preferred_destination_cities?: string[] | null
+          preferred_origin_cities?: string[] | null
+          rating_avg?: number | null
+          technical_inspection_expiry?: string | null
           truck_type?: string | null
           user_id?: string | null
+          vehicle_model?: string | null
+          vehicle_year?: number | null
         }
         Relationships: []
       }
@@ -230,6 +266,96 @@ export type Database = {
           },
         ]
       }
+      shipment_documents: {
+        Row: {
+          caption: string | null
+          created_at: string
+          doc_type: string
+          id: string
+          shipment_id: string
+          storage_path: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          doc_type: string
+          id?: string
+          shipment_id: string
+          storage_path: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          doc_type?: string
+          id?: string
+          shipment_id?: string
+          storage_path?: string
+          uploaded_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shipment_documents_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
+            referencedRelation: "shipments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      shipment_requests: {
+        Row: {
+          created_at: string
+          driver_id: string
+          id: string
+          message: string | null
+          shipment_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          driver_id: string
+          id?: string
+          message?: string | null
+          shipment_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          driver_id?: string
+          id?: string
+          message?: string | null
+          shipment_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shipment_requests_driver_id_fkey"
+            columns: ["driver_id"]
+            isOneToOne: false
+            referencedRelation: "drivers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shipment_requests_driver_id_fkey"
+            columns: ["driver_id"]
+            isOneToOne: false
+            referencedRelation: "drivers_public"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shipment_requests_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
+            referencedRelation: "shipments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       shipment_status_history: {
         Row: {
           changed_at: string
@@ -268,9 +394,55 @@ export type Database = {
           },
         ]
       }
+      shipment_tracking_events: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          event_type: string
+          id: string
+          lat: number | null
+          lng: number | null
+          note: string | null
+          photo_path: string | null
+          shipment_id: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          event_type: string
+          id?: string
+          lat?: number | null
+          lng?: number | null
+          note?: string | null
+          photo_path?: string | null
+          shipment_id: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          event_type?: string
+          id?: string
+          lat?: number | null
+          lng?: number | null
+          note?: string | null
+          photo_path?: string | null
+          shipment_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shipment_tracking_events_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
+            referencedRelation: "shipments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       shipments: {
         Row: {
+          cargo_category: string | null
           cargo_type: string
+          cargo_value_toman: number | null
           code: string
           company_id: string | null
           created_at: string
@@ -278,22 +450,28 @@ export type Database = {
           destination_city: string
           destination_province: string | null
           driver_id: string | null
+          handling_requirements: string | null
           id: string
           internal_notes: string | null
           loading_date: string | null
           operator_id: string | null
           origin_city: string
           origin_province: string | null
+          payment_terms: string | null
+          pieces_count: number | null
           price_toman: number | null
           special_instructions: string | null
           status: Database["public"]["Enums"]["shipment_status"]
+          suggested_price_toman: number | null
           truck_type: string | null
           updated_at: string
           volume_m3: number | null
           weight_kg: number | null
         }
         Insert: {
+          cargo_category?: string | null
           cargo_type: string
+          cargo_value_toman?: number | null
           code?: string
           company_id?: string | null
           created_at?: string
@@ -301,22 +479,28 @@ export type Database = {
           destination_city: string
           destination_province?: string | null
           driver_id?: string | null
+          handling_requirements?: string | null
           id?: string
           internal_notes?: string | null
           loading_date?: string | null
           operator_id?: string | null
           origin_city: string
           origin_province?: string | null
+          payment_terms?: string | null
+          pieces_count?: number | null
           price_toman?: number | null
           special_instructions?: string | null
           status?: Database["public"]["Enums"]["shipment_status"]
+          suggested_price_toman?: number | null
           truck_type?: string | null
           updated_at?: string
           volume_m3?: number | null
           weight_kg?: number | null
         }
         Update: {
+          cargo_category?: string | null
           cargo_type?: string
+          cargo_value_toman?: number | null
           code?: string
           company_id?: string | null
           created_at?: string
@@ -324,15 +508,19 @@ export type Database = {
           destination_city?: string
           destination_province?: string | null
           driver_id?: string | null
+          handling_requirements?: string | null
           id?: string
           internal_notes?: string | null
           loading_date?: string | null
           operator_id?: string | null
           origin_city?: string
           origin_province?: string | null
+          payment_terms?: string | null
+          pieces_count?: number | null
           price_toman?: number | null
           special_instructions?: string | null
           status?: Database["public"]["Enums"]["shipment_status"]
+          suggested_price_toman?: number | null
           truck_type?: string | null
           updated_at?: string
           volume_m3?: number | null
@@ -353,7 +541,47 @@ export type Database = {
             referencedRelation: "drivers"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "shipments_driver_id_fkey"
+            columns: ["driver_id"]
+            isOneToOne: false
+            referencedRelation: "drivers_public"
+            referencedColumns: ["id"]
+          },
         ]
+      }
+      shippers: {
+        Row: {
+          address: string | null
+          city: string | null
+          company_name: string
+          contact_person: string | null
+          created_at: string
+          id: string
+          industry: string | null
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          city?: string | null
+          company_name: string
+          contact_person?: string | null
+          created_at?: string
+          id: string
+          industry?: string | null
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          city?: string | null
+          company_name?: string
+          contact_person?: string | null
+          created_at?: string
+          id?: string
+          industry?: string | null
+          updated_at?: string
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {
@@ -378,7 +606,36 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      drivers_public: {
+        Row: {
+          completed_trips: number | null
+          full_name: string | null
+          id: string | null
+          license_plate: string | null
+          rating_avg: number | null
+          truck_type: string | null
+          vehicle_model: string | null
+        }
+        Insert: {
+          completed_trips?: number | null
+          full_name?: string | null
+          id?: string | null
+          license_plate?: string | null
+          rating_avg?: number | null
+          truck_type?: string | null
+          vehicle_model?: string | null
+        }
+        Update: {
+          completed_trips?: number | null
+          full_name?: string | null
+          id?: string | null
+          license_plate?: string | null
+          rating_avg?: number | null
+          truck_type?: string | null
+          vehicle_model?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
