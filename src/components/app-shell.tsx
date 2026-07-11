@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, Truck, Plus, Receipt, Users, UserCog, BarChart3, LogOut, User } from "lucide-react";
+import { LayoutDashboard, Truck, Plus, Receipt, UserCog, BarChart3, LogOut, User, Package, Building2, IdCard } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { useAuth, primaryRole } from "@/lib/auth-context";
 import { BrandMark, LangToggle } from "@/components/brand";
@@ -14,11 +14,14 @@ import type { Role } from "@/lib/auth-context";
 
 const nav: { to: string; icon: typeof LayoutDashboard; key: string; roles: Role[] }[] = [
   { to: "/app", icon: LayoutDashboard, key: "nav_dashboard", roles: ["customer","operator","manager","driver","admin"] },
-  { to: "/app/shipments", icon: Truck, key: "nav_shipments", roles: ["customer","operator","manager","driver","admin"] },
+  { to: "/app/shipments", icon: Truck, key: "nav_shipments", roles: ["customer","operator","manager","admin"] },
   { to: "/app/shipments/new", icon: Plus, key: "nav_new_shipment", roles: ["customer","operator","manager","admin"] },
+  { to: "/app/available-loads", icon: Package, key: "nav_available_loads", roles: ["driver","admin"] },
+  { to: "/app/driver-profile", icon: IdCard, key: "nav_driver_profile", roles: ["driver"] },
   { to: "/app/invoices", icon: Receipt, key: "nav_invoices", roles: ["customer","operator","manager","admin"] },
   { to: "/app/drivers", icon: UserCog, key: "nav_drivers", roles: ["operator","manager","admin"] },
   { to: "/app/reports", icon: BarChart3, key: "nav_reports", roles: ["manager","admin"] },
+  { to: "/app/onboarding", icon: Building2, key: "nav_onboarding", roles: ["customer","driver"] },
   { to: "/app/profile", icon: User, key: "nav_profile", roles: ["customer","operator","manager","driver","admin"] },
 ];
 
@@ -44,7 +47,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="flex h-16 items-center px-5 border-b border-sidebar-border">
         <BrandMark />
       </div>
-      <nav className="flex-1 space-y-1 p-3">
+      <nav className="flex-1 space-y-1 p-3 overflow-y-auto">
         {visibleNav.map(({ to, icon: Icon, key }) => {
           const active = pathname === to || (to !== "/app" && pathname.startsWith(to));
           return (
