@@ -87,6 +87,9 @@ export const dict = {
   nav_notifications: { fa: "اعلان‌ها", en: "Notifications" },
   nav_profile: { fa: "پروفایل", en: "Profile" },
   nav_signout: { fa: "خروج", en: "Sign out" },
+  nav_available_loads: { fa: "بارهای موجود", en: "Available loads" },
+  nav_driver_profile: { fa: "پروفایل راننده", en: "Driver profile" },
+  nav_onboarding: { fa: "تکمیل پروفایل", en: "Complete profile" },
 
   // Shipments
   ship_code: { fa: "کد", en: "Code" },
