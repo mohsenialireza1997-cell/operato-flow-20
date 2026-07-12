@@ -22,6 +22,7 @@ import { Route as AuthenticatedAppDriversRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAppDriverProfileRouteImport } from './routes/_authenticated/app.driver-profile'
 import { Route as AuthenticatedAppAvailableLoadsRouteImport } from './routes/_authenticated/app.available-loads'
 import { Route as AuthenticatedAppShipmentsIndexRouteImport } from './routes/_authenticated/app.shipments.index'
+import { Route as AuthenticatedAppMyLoadsIndexRouteImport } from './routes/_authenticated/app.my-loads.index'
 import { Route as AuthenticatedAppShipmentsNewRouteImport } from './routes/_authenticated/app.shipments.new'
 import { Route as AuthenticatedAppShipmentsIdRouteImport } from './routes/_authenticated/app.shipments.$id'
 
@@ -94,6 +95,12 @@ const AuthenticatedAppShipmentsIndexRoute =
     path: '/shipments/',
     getParentRoute: () => AuthenticatedAppRoute,
   } as any)
+const AuthenticatedAppMyLoadsIndexRoute =
+  AuthenticatedAppMyLoadsIndexRouteImport.update({
+    id: '/my-loads/',
+    path: '/my-loads/',
+    getParentRoute: () => AuthenticatedAppRoute,
+  } as any)
 const AuthenticatedAppShipmentsNewRoute =
   AuthenticatedAppShipmentsNewRouteImport.update({
     id: '/shipments/new',
@@ -121,6 +128,7 @@ export interface FileRoutesByFullPath {
   '/app/': typeof AuthenticatedAppIndexRoute
   '/app/shipments/$id': typeof AuthenticatedAppShipmentsIdRoute
   '/app/shipments/new': typeof AuthenticatedAppShipmentsNewRoute
+  '/app/my-loads/': typeof AuthenticatedAppMyLoadsIndexRoute
   '/app/shipments/': typeof AuthenticatedAppShipmentsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -136,6 +144,7 @@ export interface FileRoutesByTo {
   '/app': typeof AuthenticatedAppIndexRoute
   '/app/shipments/$id': typeof AuthenticatedAppShipmentsIdRoute
   '/app/shipments/new': typeof AuthenticatedAppShipmentsNewRoute
+  '/app/my-loads': typeof AuthenticatedAppMyLoadsIndexRoute
   '/app/shipments': typeof AuthenticatedAppShipmentsIndexRoute
 }
 export interface FileRoutesById {
@@ -154,6 +163,7 @@ export interface FileRoutesById {
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
   '/_authenticated/app/shipments/$id': typeof AuthenticatedAppShipmentsIdRoute
   '/_authenticated/app/shipments/new': typeof AuthenticatedAppShipmentsNewRoute
+  '/_authenticated/app/my-loads/': typeof AuthenticatedAppMyLoadsIndexRoute
   '/_authenticated/app/shipments/': typeof AuthenticatedAppShipmentsIndexRoute
 }
 export interface FileRouteTypes {
@@ -172,6 +182,7 @@ export interface FileRouteTypes {
     | '/app/'
     | '/app/shipments/$id'
     | '/app/shipments/new'
+    | '/app/my-loads/'
     | '/app/shipments/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -187,6 +198,7 @@ export interface FileRouteTypes {
     | '/app'
     | '/app/shipments/$id'
     | '/app/shipments/new'
+    | '/app/my-loads'
     | '/app/shipments'
   id:
     | '__root__'
@@ -204,6 +216,7 @@ export interface FileRouteTypes {
     | '/_authenticated/app/'
     | '/_authenticated/app/shipments/$id'
     | '/_authenticated/app/shipments/new'
+    | '/_authenticated/app/my-loads/'
     | '/_authenticated/app/shipments/'
   fileRoutesById: FileRoutesById
 }
@@ -306,6 +319,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppShipmentsIndexRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/my-loads/': {
+      id: '/_authenticated/app/my-loads/'
+      path: '/my-loads'
+      fullPath: '/app/my-loads/'
+      preLoaderRoute: typeof AuthenticatedAppMyLoadsIndexRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
     '/_authenticated/app/shipments/new': {
       id: '/_authenticated/app/shipments/new'
       path: '/shipments/new'
@@ -334,6 +354,7 @@ interface AuthenticatedAppRouteChildren {
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
   AuthenticatedAppShipmentsIdRoute: typeof AuthenticatedAppShipmentsIdRoute
   AuthenticatedAppShipmentsNewRoute: typeof AuthenticatedAppShipmentsNewRoute
+  AuthenticatedAppMyLoadsIndexRoute: typeof AuthenticatedAppMyLoadsIndexRoute
   AuthenticatedAppShipmentsIndexRoute: typeof AuthenticatedAppShipmentsIndexRoute
 }
 
@@ -348,6 +369,7 @@ const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
   AuthenticatedAppShipmentsIdRoute: AuthenticatedAppShipmentsIdRoute,
   AuthenticatedAppShipmentsNewRoute: AuthenticatedAppShipmentsNewRoute,
+  AuthenticatedAppMyLoadsIndexRoute: AuthenticatedAppMyLoadsIndexRoute,
   AuthenticatedAppShipmentsIndexRoute: AuthenticatedAppShipmentsIndexRoute,
 }
 
