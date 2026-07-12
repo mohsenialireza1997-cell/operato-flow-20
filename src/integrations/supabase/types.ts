@@ -152,6 +152,20 @@ export type Database = {
             foreignKeyName: "invoices_shipment_id_fkey"
             columns: ["shipment_id"]
             isOneToOne: false
+            referencedRelation: "driver_assigned_shipments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
+            referencedRelation: "driver_available_shipments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "invoices_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
             referencedRelation: "shipments"
             referencedColumns: ["id"]
           },
@@ -261,6 +275,20 @@ export type Database = {
             foreignKeyName: "shipment_audit_log_shipment_id_fkey"
             columns: ["shipment_id"]
             isOneToOne: false
+            referencedRelation: "driver_assigned_shipments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shipment_audit_log_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
+            referencedRelation: "driver_available_shipments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shipment_audit_log_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
             referencedRelation: "shipments"
             referencedColumns: ["id"]
           },
@@ -295,6 +323,20 @@ export type Database = {
           uploaded_by?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "shipment_documents_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
+            referencedRelation: "driver_assigned_shipments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shipment_documents_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
+            referencedRelation: "driver_available_shipments"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "shipment_documents_shipment_id_fkey"
             columns: ["shipment_id"]
@@ -351,6 +393,20 @@ export type Database = {
             foreignKeyName: "shipment_requests_shipment_id_fkey"
             columns: ["shipment_id"]
             isOneToOne: false
+            referencedRelation: "driver_assigned_shipments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shipment_requests_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
+            referencedRelation: "driver_available_shipments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shipment_requests_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
             referencedRelation: "shipments"
             referencedColumns: ["id"]
           },
@@ -385,6 +441,20 @@ export type Database = {
           to_status?: Database["public"]["Enums"]["shipment_status"]
         }
         Relationships: [
+          {
+            foreignKeyName: "shipment_status_history_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
+            referencedRelation: "driver_assigned_shipments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shipment_status_history_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
+            referencedRelation: "driver_available_shipments"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "shipment_status_history_shipment_id_fkey"
             columns: ["shipment_id"]
@@ -433,6 +503,20 @@ export type Database = {
             foreignKeyName: "shipment_tracking_events_shipment_id_fkey"
             columns: ["shipment_id"]
             isOneToOne: false
+            referencedRelation: "driver_assigned_shipments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shipment_tracking_events_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
+            referencedRelation: "driver_available_shipments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shipment_tracking_events_shipment_id_fkey"
+            columns: ["shipment_id"]
+            isOneToOne: false
             referencedRelation: "shipments"
             referencedColumns: ["id"]
           },
@@ -447,17 +531,24 @@ export type Database = {
           company_id: string | null
           created_at: string
           customer_id: string
+          delivery_contact_name: string | null
+          delivery_contact_phone: string | null
+          destination_address: string | null
           destination_city: string
           destination_province: string | null
           driver_id: string | null
+          driver_payout_toman: number | null
           handling_requirements: string | null
           id: string
           internal_notes: string | null
           loading_date: string | null
           operator_id: string | null
+          origin_address: string | null
           origin_city: string
           origin_province: string | null
           payment_terms: string | null
+          pickup_contact_name: string | null
+          pickup_contact_phone: string | null
           pieces_count: number | null
           price_toman: number | null
           special_instructions: string | null
@@ -476,17 +567,24 @@ export type Database = {
           company_id?: string | null
           created_at?: string
           customer_id: string
+          delivery_contact_name?: string | null
+          delivery_contact_phone?: string | null
+          destination_address?: string | null
           destination_city: string
           destination_province?: string | null
           driver_id?: string | null
+          driver_payout_toman?: number | null
           handling_requirements?: string | null
           id?: string
           internal_notes?: string | null
           loading_date?: string | null
           operator_id?: string | null
+          origin_address?: string | null
           origin_city: string
           origin_province?: string | null
           payment_terms?: string | null
+          pickup_contact_name?: string | null
+          pickup_contact_phone?: string | null
           pieces_count?: number | null
           price_toman?: number | null
           special_instructions?: string | null
@@ -505,17 +603,24 @@ export type Database = {
           company_id?: string | null
           created_at?: string
           customer_id?: string
+          delivery_contact_name?: string | null
+          delivery_contact_phone?: string | null
+          destination_address?: string | null
           destination_city?: string
           destination_province?: string | null
           driver_id?: string | null
+          driver_payout_toman?: number | null
           handling_requirements?: string | null
           id?: string
           internal_notes?: string | null
           loading_date?: string | null
           operator_id?: string | null
+          origin_address?: string | null
           origin_city?: string
           origin_province?: string | null
           payment_terms?: string | null
+          pickup_contact_name?: string | null
+          pickup_contact_phone?: string | null
           pieces_count?: number | null
           price_toman?: number | null
           special_instructions?: string | null
@@ -606,6 +711,106 @@ export type Database = {
       }
     }
     Views: {
+      driver_assigned_shipments: {
+        Row: {
+          cargo_category: string | null
+          cargo_type: string | null
+          code: string | null
+          created_at: string | null
+          delivery_contact_name: string | null
+          delivery_contact_phone: string | null
+          destination_address: string | null
+          destination_city: string | null
+          destination_province: string | null
+          driver_id: string | null
+          driver_payout_toman: number | null
+          handling_requirements: string | null
+          id: string | null
+          loading_date: string | null
+          origin_address: string | null
+          origin_city: string | null
+          origin_province: string | null
+          pickup_contact_name: string | null
+          pickup_contact_phone: string | null
+          pieces_count: number | null
+          special_instructions: string | null
+          status: Database["public"]["Enums"]["shipment_status"] | null
+          truck_type: string | null
+          updated_at: string | null
+          volume_m3: number | null
+          weight_kg: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shipments_driver_id_fkey"
+            columns: ["driver_id"]
+            isOneToOne: false
+            referencedRelation: "drivers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "shipments_driver_id_fkey"
+            columns: ["driver_id"]
+            isOneToOne: false
+            referencedRelation: "drivers_public"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      driver_available_shipments: {
+        Row: {
+          cargo_category: string | null
+          cargo_type: string | null
+          code: string | null
+          created_at: string | null
+          destination_city: string | null
+          destination_province: string | null
+          driver_payout_toman: number | null
+          id: string | null
+          loading_date: string | null
+          origin_city: string | null
+          origin_province: string | null
+          status: Database["public"]["Enums"]["shipment_status"] | null
+          truck_type: string | null
+          volume_m3: number | null
+          weight_kg: number | null
+        }
+        Insert: {
+          cargo_category?: string | null
+          cargo_type?: string | null
+          code?: string | null
+          created_at?: string | null
+          destination_city?: string | null
+          destination_province?: string | null
+          driver_payout_toman?: number | null
+          id?: string | null
+          loading_date?: string | null
+          origin_city?: string | null
+          origin_province?: string | null
+          status?: Database["public"]["Enums"]["shipment_status"] | null
+          truck_type?: string | null
+          volume_m3?: number | null
+          weight_kg?: number | null
+        }
+        Update: {
+          cargo_category?: string | null
+          cargo_type?: string | null
+          code?: string | null
+          created_at?: string | null
+          destination_city?: string | null
+          destination_province?: string | null
+          driver_payout_toman?: number | null
+          id?: string | null
+          loading_date?: string | null
+          origin_city?: string | null
+          origin_province?: string | null
+          status?: Database["public"]["Enums"]["shipment_status"] | null
+          truck_type?: string | null
+          volume_m3?: number | null
+          weight_kg?: number | null
+        }
+        Relationships: []
+      }
       drivers_public: {
         Row: {
           completed_trips: number | null

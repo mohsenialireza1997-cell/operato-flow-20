@@ -17,6 +17,7 @@ const nav: { to: string; icon: typeof LayoutDashboard; key: string; roles: Role[
   { to: "/app/shipments", icon: Truck, key: "nav_shipments", roles: ["customer","operator","manager","admin"] },
   { to: "/app/shipments/new", icon: Plus, key: "nav_new_shipment", roles: ["customer","operator","manager","admin"] },
   { to: "/app/available-loads", icon: Package, key: "nav_available_loads", roles: ["driver","admin"] },
+  { to: "/app/my-loads", icon: Truck, key: "nav_my_loads", roles: ["driver"] },
   { to: "/app/driver-profile", icon: IdCard, key: "nav_driver_profile", roles: ["driver"] },
   { to: "/app/invoices", icon: Receipt, key: "nav_invoices", roles: ["customer","operator","manager","admin"] },
   { to: "/app/drivers", icon: UserCog, key: "nav_drivers", roles: ["operator","manager","admin"] },
